@@ -1,13 +1,17 @@
-import 'package:customer/helper/API.dart';
-import 'package:customer/helper/Constans.dart';
-import 'package:customer/models/Payment.dart';
+
+
+
+
+import '../helper/my_api.dart';
+import '../helper/my_constans.dart';
+import '../models/my_payment.dart';
 
 class GetAllPayments
 {
-  Future<List<PaymentModel>> GetPayments({required int CustomerID})
+  Future<List<PaymentModel>> getPayments({required int customerID})
  async {
-   List<dynamic> data =await Api().post(Url: "${UrlAll}GetAllPayments.php", body: {
-      'CustomerID':CustomerID.toString()
+   List<dynamic> data =await Api().post(url: "${urlAll}GetAllPayments.php", body: {
+      'CustomerID':customerID.toString()
     });
    List<PaymentModel> payments=[];
     for(int i=1;i<data.length;i++)

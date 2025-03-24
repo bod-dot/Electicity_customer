@@ -1,11 +1,13 @@
-import 'package:customer/helper/API.dart';
-import 'package:customer/helper/Constans.dart';
+
+import 'package:customer/helper/my_constans.dart';
+
+import '../helper/my_api.dart';
 
 class Login
 {
-  Future<dynamic> LoginMeth({required String phone,required String password})
+  Future<dynamic> loginMeth({required String phone,required String password})
  async {
-    dynamic data = await Api().post(Url: "${UrlAll}Login_Customer.php", body: {
+    dynamic data = await Api().post(url: "${urlAll}Login_Customer.php", body: {
       'phone':phone,
       'password':password
     });

@@ -1,16 +1,17 @@
-import 'package:customer/helper/Constans.dart';
-import 'package:customer/helper/screenSize.dart';
+import 'package:customer/helper/my_constans.dart';
+import 'package:customer/helper/screen_size.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
-import '../models/Reading.dart';
+
+import '../models/my_reading.dart';
 
 class Chart extends StatefulWidget {
-  Chart({ required this.reads});
+ const  Chart({super.key,  required this.reads});
   final List<ReadingsModel> reads;
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChartState createState() => _ChartState();
 }
 
@@ -20,9 +21,9 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    valueEverMoth=ReadingsModel.GetUsageMonth(readings: widget.reads);
+    valueEverMoth=ReadingsModel.getUsageMonth(readings: widget.reads);
     return Container(
-      height: Screensize().SizeScreen(context, 0.5, 0.6),
+      height: Screensize().sizeScreen(context, 0.5, 0.6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey[200],
@@ -33,13 +34,14 @@ class _ChartState extends State<Chart> {
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Container(
+              child: SizedBox
+              (
                 width: 600,
                 height: 400,
                 child: BarChart(
                   BarChartData(
                     alignment: BarChartAlignment.spaceAround,
-                    maxY: ReadingsModel.GetMaxUsage(read: valueEverMoth),
+                    maxY: ReadingsModel.getMaxUsage(read: valueEverMoth),
 
                     barTouchData: BarTouchData(
                       touchTooltipData: BarTouchTooltipData(
@@ -48,7 +50,7 @@ class _ChartState extends State<Chart> {
 
                           return BarTooltipItem(
                             'Value: ${rod.toY.toInt()}',
-                            TextStyle(color: Colors.white),
+                          const  TextStyle(color: Colors.white),
                           );
                         },
                       ),
@@ -67,10 +69,10 @@ class _ChartState extends State<Chart> {
                       final isTouched = index == touchedIndex;
                       final color = isTouched
                           ? Colors.orange
-                          : KColorPrimer;
+                          : kColorPrimer;
                       return BarChartGroupData(x: index, barRods: [
                         BarChartRodData(
-                          toY: ReadingsModel.GetUsageMonth(readings: widget.reads)[index].toDouble(),
+                          toY: ReadingsModel.getUsageMonth(readings: widget.reads)[index].toDouble(),
                           color: color,
                           width: 30,
                           borderRadius: BorderRadius.circular(8),
@@ -85,10 +87,10 @@ class _ChartState extends State<Chart> {
                           getTitlesWidget: (double value, TitleMeta meta) {
                             return Text(
                               value.toInt().toString(),
-                              style: TextStyle(
+                              style:const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
-                                color: KColorPrimer,
+                                color: kColorPrimer,
                               ),
                             );
                           },
@@ -101,31 +103,31 @@ class _ChartState extends State<Chart> {
 
                             switch (value.toInt()) {
                               case 0:
-                                return Text('Jan');
+                                return const Text('Jan');
                               case 1:
-                                return Text('Feb');
+                                return const Text('Feb');
                               case 2:
-                                return Text('Mar');
+                                return const Text('Mar');
                               case 3:
-                                return Text('Apr');
+                                return const Text('Apr');
                               case 4:
-                                return Text('May');
+                                return const Text('May');
                               case 5:
-                                return Text('Jun');
+                                return const Text('Jun');
                               case 6:
-                                return Text('Jul');
+                                return const Text('Jul');
                               case 7:
-                                return Text('Aug');
+                                return const Text('Aug');
                               case 8:
-                                return Text('Sep');
+                                return const Text('Sep');
                               case 9:
-                                return Text('Oct');
+                                return const Text('Oct');
                               case 10:
-                                return Text('Nov');
+                                return const Text('Nov');
                               case 11:
-                                return Text('Dec');
+                                return const Text('Dec');
                               default:
-                                return Text('');
+                                return const Text('');
                             }
 
                           },
@@ -138,16 +140,16 @@ class _ChartState extends State<Chart> {
                       drawHorizontalLine: true,
                       getDrawingHorizontalLine: (value) {
                         return FlLine(
-                          color: KColorPrimer.withOpacity(0.3),
+                          color: kColorPrimer.withOpacity(0.3),
                           strokeWidth: 1,
                         );
                       },
                     ),
                     borderData: FlBorderData(
                       show: true,
-                      border: Border(
-                        left: BorderSide(color: KColorPrimer, width: 2),
-                        bottom: BorderSide(color: KColorPrimer, width: 2),
+                      border:const Border(
+                        left: BorderSide(color: kColorPrimer, width: 2),
+                        bottom: BorderSide(color: kColorPrimer, width: 2),
                       ),
                     ),
                   ),

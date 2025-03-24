@@ -1,21 +1,22 @@
+ 
 
 
-import 'package:customer/helper/API.dart';
-import 'package:customer/helper/Constans.dart';
-import 'package:customer/models/Reading.dart';
+import '../helper/my_api.dart';
+import '../helper/my_constans.dart';
+import '../models/my_reading.dart';
 
 
 class GetAllReadings {
-  Future<List<ReadingsModel>> getReading({required String ElectronicMeterID}) async {
+  Future<List<ReadingsModel>> getReading({required String electronicMeterID}) async {
    List<dynamic> data = await Api().post(
-        Url: '${UrlAll}GetReadings.php',
-        body: {'ElectronicMeterID': ElectronicMeterID});
-    List<ReadingsModel> read = [];
+        url: '${urlAll}GetReadings.php',
+        body: {'ElectronicMeterID': electronicMeterID});
+    List<ReadingsModel> readings = [];
 
     for (int i = 1; i < data.length; i++) {
 
-      read.add(ReadingsModel.fromJson(data[i]));
+      readings.add(ReadingsModel.fromJson(data[i]));
     }
-    return read;
+    return readings;
   }
 }
