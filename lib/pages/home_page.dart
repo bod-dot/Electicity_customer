@@ -78,7 +78,10 @@ class _HomepageState extends State<Homepage> {
                     )
                    else if(state is HomeLoading)
                     SizedBox(
-                      height:Screensize().sizeScreen(context, 0.8, 0.9) ,
+                      
+                      height:Screensize().sizeScreen(context, 0.4, 0.5),
+           
+                    
                       child: const  Center( child: CircularProgressIndicator(),))
                   else if(state is HomeFaluir)
                    Center(child: Text(state.errMessage),)

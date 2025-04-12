@@ -91,7 +91,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    if(state is HomeSuccess)
+                    if((state is HomeSuccess || state is HomeNoData))
                     Column(
                       children: [
                         MyListTile(
@@ -169,7 +169,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         share.remove('CustomerName');
                         share.remove('ElectronicMeterID');
                         share.remove('customerID');
-
+                    
                         Navigator.pushReplacementNamed(context, LoginPage.id);
                       },
                       text: "تسجيل الخروج",

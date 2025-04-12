@@ -77,7 +77,9 @@ else{
 
 bool  checkData({ required String typeReport,
   required dynamic liReading,required dynamic liPayment })
+
 {
+  
  if(typeReport=='القراءات' &&liReading.isEmpty){
 
 
