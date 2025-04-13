@@ -19,11 +19,13 @@ class _LoginBodyState extends State<LoginBody> {
   TextEditingController phone = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   Screensize screen = Screensize();
+  AutovalidateMode autovalidateMode =AutovalidateMode.always;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Form(
+        autovalidateMode: autovalidateMode,
         key: formKey,
         child: Column(
           children: [
@@ -63,7 +65,7 @@ class _LoginBodyState extends State<LoginBody> {
                         height: screen.sizeScreen(context, 0.05, 0.05),
                       ),
                       MyTextinput(
-                        typeText: TextInputType.number,
+                        typeText: TextInputType.phone,
                         controller: phone,
                         text: "رقم الهاتف",
                         texticon: const Icon(

@@ -36,15 +36,31 @@ class _MyTextinputState extends State<MyTextinput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+       maxLength: widget.typeText==TextInputType.phone?9:50,
       validator: (data) {
-        if (data!.isEmpty) {
+        if (data?.isEmpty??true) {
           return 'يرجو تعبة الحقل ';
-        } else {
-          if (int.tryParse(data) == null &&
-              widget.typeText == TextInputType.number) {
+        } 
+          if (int.tryParse(data!) == null &&
+              widget.typeText == TextInputType.phone) {
             return 'يرجاء تعبة الحقل ارقام فقط';
           }
-        }
+          if(widget.typeText==TextInputType.number ||widget.typeText==TextInputType.phone)
+          {
+            if(data.length>=2)
+            {
+             
+              int number=int.parse(data.substring(0,2));
+             if (number != 77 && number != 78 && number != 71 && number != 73) {
+                return 'الرجاء إدخال رقم يبدأ بـ77/78/71/73';
+                }
+               
+
+             
+            }
+           
+          }
+        
         return null;
       },
       keyboardType: widget.typeText,
