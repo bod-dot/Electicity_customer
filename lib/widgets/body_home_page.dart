@@ -26,6 +26,8 @@ class _BodyHomePageState extends State<BodyHomePage> {
   void initState() {
    liReading= BlocProvider.of<HomeCubit>(context).liReading;
    indextofReading = liReading.length - 1;
+    BlocProvider.of<HomeCubit>(context).many= liReading[liReading.length - 1]
+                                          .getTotalBill(isListOne: true).toString();
     super.initState();
   }
   @override
@@ -49,7 +51,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                 onTop: () {
                                   Navigator.pushNamed(context, Paymentpage.id,
                                       arguments: liReading[liReading.length - 1]
-                                          .customerTotalDues);
+                                          .getTotalBill(isListOne:indextofReading == liReading.length - 1 ));
                                 },
                                 checkIsListOn:
                                     indextofReading == liReading.length - 1,
@@ -58,7 +60,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                       ),
                      
                            SizedBox(
-                              //   height: screen.SizeScreen(context, 1, 1),
+                               //  height: Screensize().sizeScreen(context, 5, 1),
                               width: double.infinity,
                               child: Column(
                                 children: [
@@ -77,7 +79,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                           child: Row(
                                             children: [
                                               const MytextLable(
-                                                value: "كل القراءات",
+                                                value: "اخر القراءات",
                                                 style: TextStyle(
                                                     color: kColorPrimer,
                                                     fontSize: 18,
@@ -169,6 +171,10 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                           indent: 40,
                                           endIndent: 40,
                                           height: 30,
+                                        ),
+                                       const  Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('استهلاك الطاقة لكل شهر',style: TextStyle(color: kColorSecond,fontSize: 18),),
                                         ),
                                         Chart(
                                           reads: liReading,

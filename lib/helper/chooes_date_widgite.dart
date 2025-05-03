@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'my_constans.dart';
 
 class MyDate {
-  void chooesDatePicker({
+  Future<String> chooesDatePicker({
     required TextEditingController date,
     required List<dynamic> allReadings,
     required BuildContext context,
@@ -47,9 +47,10 @@ class MyDate {
     );
 
     if (dateChooes != null) {
-      date.text =
-      '${dateChooes.year}-${dateChooes.month.toString().padLeft(2, '0')}-${dateChooes.day.toString().padLeft(2, '0')}';
+      date.text ='${dateChooes.year}-${dateChooes.month.toString().padLeft(2, '0')}-${dateChooes.day.toString().padLeft(2, '0')}';
+      return date.text;
     }
+    return '';
   }
 
 

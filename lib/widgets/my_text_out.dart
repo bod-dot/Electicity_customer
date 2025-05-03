@@ -16,7 +16,9 @@ const  MytextLable({super.key, required this.value, this.color = Colors.white, t
         color: color,
         fontWeight: FontWeight.bold,
         fontSize: 20,
+        
       ),
+      
 
     );
   }

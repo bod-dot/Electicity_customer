@@ -35,7 +35,9 @@ class GetMessages {
   for (int i = 1; i < data.length ; i++) {
     messages.add(MessageModel.fromjosn(data[i]));
   }
+ if (!streamController.isClosed) {
   streamController.add(messages);
+}
 }
 
 

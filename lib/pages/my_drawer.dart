@@ -2,6 +2,7 @@ import 'package:customer/cubit/home_cubit/home_cubit.dart';
 import 'package:customer/helper/my_constans.dart';
 import 'package:customer/helper/screen_size.dart';
 import 'package:customer/models/my_reading.dart';
+import 'package:customer/pages/about_app.dart';
 import 'package:customer/pages/change_password_page.dart';
 import 'package:customer/pages/login_page.dart';
 import 'package:customer/pages/my_payment_page.dart';
@@ -14,9 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MyDrawer extends StatefulWidget {
-  const MyDrawer({super.key, required this.many, required this.readings});
-  final double? many;
+  const MyDrawer({super.key, required this.readings, required this.customerID});
+  
   final List<ReadingsModel> readings;
+  final int  customerID ;
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -109,8 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                         MyListTile(
                           action: () {
-                            Navigator.pushNamed(context, Paymentpage.id,
-                                arguments: widget.many);
+                            Navigator.pushNamed(context, Paymentpage.id);
                           },
                           text: " ادفع الان ",
                           icon: const Icon(Icons.payments_outlined),
@@ -134,10 +135,9 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                         MyListTile(
                           action: () {
-                            Navigator.pushNamed(
-                              context,
-                              Chatpage.id,
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Chatpage(customerID: widget.customerID)
+                          
+                            ));
                           },
                           text: "الشكاوي",
                           icon: const Icon(Icons.chat),
@@ -153,6 +153,19 @@ class _MyDrawerState extends State<MyDrawer> {
                       action: () => launchUrlString('tel://775100552'),
                       text: "اتصل بنا",
                       icon: const Icon(Icons.phone_outlined),
+                      fontSize: 17,
+                      circular: 15,
+                      iconColor: kColorPrimer,
+                      shadowColor: Colors.black,
+                      textColor: kColorPrimer,
+                    ),
+
+                       MyListTile(
+                      action: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const AboutScreen()));
+                      },
+                      text: " عن التطبيق",
+                      icon: const Icon(Icons.info),
                       fontSize: 17,
                       circular: 15,
                       iconColor: kColorPrimer,
@@ -179,6 +192,8 @@ class _MyDrawerState extends State<MyDrawer> {
                       iconColor: Colors.red,
                       shadowColor: Colors.black,
                       textColor: Colors.red,
+                      
+
                     ),
                     const SizedBox(height: 20),
                   ],

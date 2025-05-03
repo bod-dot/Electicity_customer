@@ -20,9 +20,12 @@ const  Inforow({super.key,
       children: [
         Expanded(
           flex: 1,
-          child: MytextLable(
-            value: value,
-            color: kColorPrimer,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: MytextLable(
+              value: value,
+              color: kColorPrimer,
+            ),
           ),
         ),
         MytextLable(

@@ -29,83 +29,87 @@ class _ChangePasswrodBodyState extends State<ChangePasswrodBody> {
   Widget build(BuildContext context) {
      final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return  Form(
-      key: formKey,
-      child: Container(
-            width: screenWidth,
-            height: screenHeight,
-            decoration: const BoxDecoration(
-      
-            ),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Myicon(
-                          heigthContainer: screen.sizeScreen(context, 0.19, 0.5),
-                          widthContainer: screen.sizeScreen(context, 0.19, 0.45),
-                          icon:const Icon(Icons.lock_outline),
-                          color: kColorPrimer,
-                          size: screen.sizeScreen(context, 0.15, 0.3)),
-                      const SizedBox(height: 20),
-                      MyTextinput(
-                        isPasswrod: true,
-                        colorInFocuse: Colors.white,
-                        text: "كلمة السر القديمة",
-                        texticon: const Icon(Icons.lock_open_outlined,
-                            color: kColorwhite),
-                        obscureText: true,
-                        controller: oldPassword,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      MyTextinput(
-                        isPasswrod: true,
-                        colorInFocuse: Colors.white,
-                        text: "كلمة السر الجديدة",
-                        texticon:
-                            const Icon(Icons.edit_outlined, color: kColorwhite),
-                        obscureText: true,
-                        controller: newPassword,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      MyTextinput(
-                        isPasswrod: true,
-                        colorInFocuse: Colors.white,
-                        text: "تأكيد كلمة السر",
-                        texticon: const Icon(Icons.check_circle_outline,
-                            color: kColorwhite),
-                        obscureText: true,
-                        controller: confirmPassword,
-                      ),
-                      const SizedBox(height: 20),
-                      BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
-                        builder: (context, state) {
-                          return MyButton(
-                            isLoading:state is ChangePasswordLoading ,
-                              text: "تغيير كلمة السر",
-                              action: () async {
-                                if (formKey.currentState!.validate()) {
-                                    
-                                 BlocProvider.of<ChangePasswordCubit>(context).changePassword(newPassword: newPassword, confirmPassword: confirmPassword, oldPassword: oldPassword);
-                                
-                                }
-                              },
-                              color: kColorPrimer,
-                              width: screen.sizeScreen(context, 0.09, 0.7),
-                              height: screen.sizeScreen(context, 0.02, 0.05),
-                              fontSize: screen.sizeScreen(context, 0.025, 0.045));
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                    ],
+    return  Directionality(
+      textDirection: TextDirection.rtl,
+      child: Form(
+        key: formKey,
+        child: Container(
+              width: screenWidth,
+              height: screenHeight,
+              decoration: const BoxDecoration(
+        
+              ),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Myicon(
+                            heigthContainer: screen.sizeScreen(context, 0.19, 0.5),
+                            widthContainer: screen.sizeScreen(context, 0.19, 0.45),
+                            icon:const Icon(Icons.lock_outline),
+                            color: kColorPrimer,
+                            size: screen.sizeScreen(context, 0.15, 0.3)),
+                        const SizedBox(height: 20),
+                        MyTextinput(
+                          isPasswrod: true,
+                          colorInFocuse: Colors.white,
+                          text: "كلمة السر القديمة",
+                          texticon: const Icon(Icons.lock_open_outlined,
+                              color: kColorwhite),
+                          obscureText: true,
+                          controller: oldPassword,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        MyTextinput(
+                          isPasswrod: true,
+                          colorInFocuse: Colors.white,
+                          text: "كلمة السر الجديدة",
+                          texticon:
+                              const Icon(Icons.edit_outlined, color: kColorwhite),
+                          obscureText: true,
+                          controller: newPassword,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        MyTextinput(
+                          isPasswrod: true,
+                          colorInFocuse: Colors.white,
+                          text: "تأكيد كلمة السر",
+                          texticon: const Icon(Icons.check_circle_outline,
+                              color: kColorwhite),
+                          obscureText: true,
+                          controller: confirmPassword,
+                        ),
+                        const SizedBox(height: 20),
+                        BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
+                          builder: (context, state) {
+                            return MyButton(
+                              colorFont: Colors.white,
+                              isLoading:state is ChangePasswordLoading ,
+                                text: "تغيير كلمة السر",
+                                action: () async {
+                                  if (formKey.currentState!.validate()) {
+                                      
+                                   BlocProvider.of<ChangePasswordCubit>(context).changePassword(newPassword: newPassword, confirmPassword: confirmPassword, oldPassword: oldPassword);
+                                  
+                                  }
+                                },
+                                color: kColorPrimer,
+                                width: screen.sizeScreen(context, 0.09, 0.7),
+                                height: screen.sizeScreen(context, 0.02, 0.05),
+                                fontSize: screen.sizeScreen(context, 0.025, 0.045));
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+      ),
     );
   }
 }

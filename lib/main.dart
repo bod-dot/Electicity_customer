@@ -1,4 +1,5 @@
 import 'package:customer/cubit/home_cubit/home_cubit.dart';
+import 'package:customer/cubit/payment/payment_cubit.dart';
 import 'package:customer/cubit/simple_bloc_observer.dart';
 import 'package:customer/pages/change_password_page.dart';
 import 'package:customer/pages/home_page.dart';
@@ -12,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- Bloc.observer=MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
   SharedPreferences shared = await SharedPreferences.getInstance();
   bool check = shared.getInt('customerID') != null;
   runApp(CustomerApp(isLogin: check));
@@ -25,22 +26,29 @@ class CustomerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return     
-       BlocProvider(
-         create: (context) => HomeCubit(),
-         child: MaterialApp(
-               debugShowCheckedModeBanner: false,
-               routes: {
-                 LoginPage.id: (context) => const LoginPage(),
-                 Homepage.id: (context) => const Homepage(),
-                 Report.id: (context) => const Report(),
-                 Chatpage.id: (context) => const Chatpage(),
-                 ChangePasswordPage.id: (context) => const ChangePasswordPage(),
-                 Paymentpage.id: (context) => Paymentpage()
-               },
-               initialRoute: isLogin ? Homepage.id : LoginPage.id,
-             ),
-       );
-    
+    return MultiBlocProvider(
+      providers: [
+        // HomeCubit كما هو
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(),
+        ),
+       
+        BlocProvider<PaymentCubit>(
+          create: (context) => PaymentCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          LoginPage.id: (context) => const LoginPage(),
+          Homepage.id: (context) => const Homepage(),
+          Report.id: (context) => const Report(),
+         // Chatpage.id: (context) => const Chatpage(),
+          ChangePasswordPage.id: (context) => const ChangePasswordPage(),
+          Paymentpage.id: (context) =>const  Paymentpage()
+        },
+        initialRoute: isLogin ? Homepage.id : LoginPage.id,
+      ),
+    );
   }
 }

@@ -34,7 +34,12 @@ class ReadingsModel {
     return currentReading - previousReading;
   }
 
-  double getTotalBill() {
+  double getTotalBill({ bool isListOne = false}) {
+
+    if(isListOne)
+    {
+      return getUsageKilo() * priceOfKilo + customerTotalDues;
+    }
     return getUsageKilo() * priceOfKilo + totalDuesInThisReading;
   }
 

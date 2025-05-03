@@ -63,19 +63,19 @@ class Mainelectricitybillcard extends StatelessWidget {
             lable: " : قراه العداد السابقة",
           ),
           Inforow(
-            value: "${reading.getUsageKilo()} kWh",
+            value: "${reading.getUsageKilo()} kW",
             lable: " :              الاستهلاك",
           ),
           Inforow(
-            value: " ${reading.totalDuesInThisReading.toString()} ريال ",
+            value:checkIsListOn ? " ${reading.customerTotalDues.toString()} ريال " :" ${reading.totalDuesInThisReading.toString()} ريال " ,
             lable: " :                المتاخر ",
           ),
           Inforow(
-            value: "${reading.priceOfKilo} W",
+            value: "${reading.priceOfKilo} ريال",
             lable: " :          سعر الوحدة",
           ),
           Inforow(
-            value: "${reading.getTotalBill()} ريال",
+            value:"${reading.getTotalBill(isListOne: checkIsListOn)} "  "ريال" ,
             lable: " :     اجمالي الفاتوره",
           ),
           checkIsListOn

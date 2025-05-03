@@ -13,6 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   String? customerName;
    int indextofReading = 0;
+   String? many;
 
   String? electronicMeterID;
   List<ReadingsModel> liReading = [];

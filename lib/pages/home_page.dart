@@ -1,8 +1,10 @@
+
 import 'package:customer/helper/screen_size.dart';
 import 'package:customer/pages/my_drawer.dart';
 import 'package:customer/pages/no_internt.dart';
 import 'package:customer/widgets/main_electricity_bill_card.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../helper/my_constans.dart';
 import '../models/my_reading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ class _HomepageState extends State<Homepage> {
   int indextofReading = 0;
   bool hasData = true;
   String? customerName;
+  int? customerID;
 
   String? electronicMeterID;
 
@@ -36,6 +39,15 @@ class _HomepageState extends State<Homepage> {
     BlocProvider.of<HomeCubit>(context).getDataForHomePage();
     super.initState();
   }
+
+ @override
+  void didChangeDependencies() async{
+    SharedPreferences shared=  await SharedPreferences.getInstance();
+    customerID= shared.getInt("customerID");
+    super.didChangeDependencies();
+  }
+
+
 
  
 
@@ -46,9 +58,11 @@ class _HomepageState extends State<Homepage> {
         
         
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           
           backgroundColor: kColorPrimer,
           appBar: AppBar(
+              iconTheme:const  IconThemeData(color: Colors.white),
             automaticallyImplyLeading: false,
             backgroundColor: kColorPrimer,
             centerTitle: true,
@@ -61,37 +75,37 @@ class _HomepageState extends State<Homepage> {
             ),
           ),
           endDrawer: MyDrawer(
-            many: liReading.isNotEmpty
-                ? liReading[liReading.length - 1].getTotalBill()
-                : 0,
+            customerID: customerID??0,
             readings: liReading,
           ),
          
           body: 
           
-                 Column(
-                   children: [
-                    if(state is HomeSuccess)
-                    SizedBox(
-                    height: Screensize().sizeScreen(context, 0.898, 0.9),
-                    child:const    BodyHomePage(),
-                    )
-                   else if(state is HomeLoading)
-                    SizedBox(
+                 SingleChildScrollView(
+                   child: Column(
+                     children: [
+                      if(state is HomeSuccess)
+                      SizedBox(
+                      height: Screensize().sizeScreen(context, 0.895, 0.9),
+                      child:const    BodyHomePage(),
+                      )
+                     else if(state is HomeLoading)
+                      SizedBox(
+                        
+                        height:Screensize().sizeScreen(context, 0.4, 0.5),
+                              
                       
-                      height:Screensize().sizeScreen(context, 0.4, 0.5),
-           
-                    
-                      child: const  Center( child: CircularProgressIndicator(),))
-                  else if(state is HomeFaluir)
-                   Center(child: Text(state.errMessage),)
-                   else if(state is HomeNoData)
-                   Mainelectricitybillcard(reading: ReadingsModel(totalDuesInThisReading: 0.0, previousReading: 0.0, currentReading: 0.0, date: DateTime.now(), customerTotalDues: 0.0, priceOfKilo: 0, readingID: 0))
-                   else if(state is HomeNoInternt)
-                           SizedBox(
-                            height:Screensize().sizeScreen(context, 0.898, 0.9) ,
-                            child: Center(child: NoEnterntScreen(onPressed: (){})))
-                   ],
+                        child: const  Center( child: CircularProgressIndicator(color: Colors.white,),))
+                    else if(state is HomeFaluir)
+                     Center(child: Text(state.errMessage),)
+                     else if(state is HomeNoData)
+                     Mainelectricitybillcard(reading: ReadingsModel(totalDuesInThisReading: 0.0, previousReading: 0.0, currentReading: 0.0, date: DateTime.now(), customerTotalDues: 0.0, priceOfKilo: 0, readingID: 0))
+                     else if(state is HomeNoInternt)
+                             SizedBox(
+                              height:Screensize().sizeScreen(context, 0.895, 0.9) ,
+                              child: Center(child: NoEnterntScreen(onPressed: (){})))
+                     ],
+                   ),
                  ),
         );
       },

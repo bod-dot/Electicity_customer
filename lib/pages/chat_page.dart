@@ -6,11 +6,12 @@ import 'package:customer/models/meeage_model.dart';
 import 'package:customer/widgets/chat_buble.dart';
 import 'package:customer/widgets/chat_buble_from_freinds.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import '../helper/my_constans.dart';
 
 class Chatpage extends StatefulWidget {
-const   Chatpage({super.key});
+const   Chatpage({super.key, required this.customerID});
+final int customerID;
 
   static String id = 'chatPage';
 
@@ -25,25 +26,25 @@ class _ChatpageState extends State<Chatpage> {
   final GetMessages getMessages = GetMessages();
 
   TextEditingController message = TextEditingController();
-  int? customerID;
+ 
 
   @override
   void initState() {
     super.initState();
 
     getID();
-    _timer = Timer.periodic(const  Duration(seconds: 2), (timer) {
-
+    _timer = Timer.periodic(const  Duration(seconds: 1), (timer) {
+ getMessages.getMessage(customerID: widget.customerID);
     });
   }
 
   Future<void> getID() async {
-    SharedPreferences share = await SharedPreferences.getInstance();
-    customerID = share.getInt('customerID');
-    if (customerID != null) {
-      getMessages.getMessage(customerID: customerID!);
+   // SharedPreferences share = await SharedPreferences.getInstance();
+   
+    
+      getMessages.getMessage(customerID: widget.customerID);
 
-    }
+    
 
   }
 
@@ -59,9 +60,10 @@ class _ChatpageState extends State<Chatpage> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       child: Scaffold(
         appBar: AppBar(
+            iconTheme:const  IconThemeData(color: Colors.white),
           shape:const  RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),
           toolbarHeight: screen.sizeScreen(context, 0.09, 0.12),
@@ -69,7 +71,8 @@ class _ChatpageState extends State<Chatpage> {
             "صفحة المراسلة",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: screen.sizeScreen(context, 0.03, 0.05)),
+                fontSize: screen.sizeScreen(context, 0.03, 0.05),
+                color: Colors.white),
           ),
           centerTitle: true,
           backgroundColor: kColorPrimer,
@@ -102,35 +105,38 @@ class _ChatpageState extends State<Chatpage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextField(
-                      onChanged: (data) {
-                        setState(() {});
-                      },
-                      controller: message,
-                      decoration: InputDecoration(
-                          hintText: "الرسالة",
-                          labelStyle: const TextStyle(color: Colors.black),
-                          suffix: message.text.isNotEmpty
-                              ? GestureDetector(
-                                  onTap: () async {
-                                    SendNewMessage().sendMessage(
-                                        message: message.text, customerID: 5);
-                                    message.clear();
-                                    await getMessages.getMessage(customerID: customerID!);
-                                    _controller.jumpTo(0);
-                                  },
-                                  child: const Icon(
-                                    Icons.send_outlined,
-                                    size: 20,
-                                  ))
-                              : null,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: kColorPrimer),
-                            borderRadius: BorderRadius.circular(20),
-                          )),
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TextField(
+                        onChanged: (data) {
+                          setState(() {});
+                        },
+                        controller: message,
+                        decoration: InputDecoration(
+                            hintText: "الرسالة",
+                            labelStyle: const TextStyle(color: Colors.black),
+                            suffix: message.text.isNotEmpty
+                                ? GestureDetector(
+                                    onTap: () async {
+                                      SendNewMessage().sendMessage(
+                                          message: message.text, customerID: 5);
+                                      message.clear();
+                                      await getMessages.getMessage(customerID: widget.customerID!);
+                                      _controller.jumpTo(0);
+                                    },
+                                    child: const Icon(
+                                      Icons.send_outlined,
+                                      size: 20,
+                                    ))
+                                : null,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: kColorPrimer),
+                              borderRadius: BorderRadius.circular(20),
+                            )),
+                      ),
                     ),
                   ),
                   SizedBox(

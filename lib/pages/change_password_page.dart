@@ -49,28 +49,32 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             Mysnackbar().showSnackbarError(context: context, title: "كلمة السر", message: "كلمة السر غير صحيحة", contentType: ContentType.failure);
            }
           },
-          child: Scaffold(
-              backgroundColor: kColorThreed,
-              appBar: AppBar(
-                title: Text(
-                  "تغيير كلمة السر",
-                  style: TextStyle(
-                    fontSize: screen.sizeScreen(context, 0.03, 0.05),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Scaffold(
+                backgroundColor: kColorThreed,
+                appBar: AppBar(
+                    iconTheme:const  IconThemeData(color: Colors.white),
+                  title: Text(
+                    "تغيير كلمة السر",
+                    style: TextStyle(
+                      fontSize: screen.sizeScreen(context, 0.03, 0.05),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                centerTitle: true,
-                toolbarHeight: screen.sizeScreen(context, 0.10, 0.2),
-                backgroundColor: kColorPrimer,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(30),
+                  centerTitle: true,
+                  toolbarHeight: screen.sizeScreen(context, 0.10, 0.2),
+                  backgroundColor: kColorPrimer,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(30),
+                    ),
                   ),
+                  elevation: 5,
                 ),
-                elevation: 5,
-              ),
-              body: const ChangePasswrodBody()),
+                body: const ChangePasswrodBody()),
+          ),
         ),
       ),
     );

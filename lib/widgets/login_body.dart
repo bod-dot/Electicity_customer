@@ -30,7 +30,7 @@ class _LoginBodyState extends State<LoginBody> {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 100),
+              margin: const EdgeInsets.only(top: 50),
               child: ClipOval(
                 child: Image.asset(
                   kImage,
@@ -40,7 +40,12 @@ class _LoginBodyState extends State<LoginBody> {
                 ),
               ),
             ),
-            const MytextLable(value: "مرحبا بك في محطة لتوليد الكهرباء"),
+            const MytextLable(value: '    مرحبا بك في محطة المنصوري للكهرباء  ' ),
+          const   SizedBox(height: 15,),
+          const   Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20),
+              child:  MytextLable(value: '    سدد فواتيرك واستعلم عن استهلاكك  وأبلغنا عن مقترحاتك بكل سهولة  ' ,style: TextStyle(color: Colors.white,fontSize: 15),),
+            ),
             Container(
                 width: double.infinity,
                 height: screen.sizeScreen(context, 0.5, 0.8),
@@ -54,17 +59,15 @@ class _LoginBodyState extends State<LoginBody> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      Text(
-                        "تسجيل الدخول",
-                        style: TextStyle(
-                            color: kColorBlack,
-                            fontSize: screen.sizeScreen(context, 0.03, 0.05),
-                            fontWeight: FontWeight.bold),
-                      ),
+                   
                       SizedBox(
                         height: screen.sizeScreen(context, 0.05, 0.05),
                       ),
                       MyTextinput(
+                        style:const  TextStyle(color: Colors.black), 
+                        
+                        labelStyle:const  TextStyle(color: Colors.black),
+
                         typeText: TextInputType.phone,
                         controller: phone,
                         text: "رقم الهاتف",
@@ -78,6 +81,8 @@ class _LoginBodyState extends State<LoginBody> {
                         height: screen.sizeScreen(context, 0.02, 0.05),
                       ),
                       MyTextinput(
+                          style:const  TextStyle(color: Colors.black), 
+                         labelStyle:const  TextStyle(color: Colors.black),
                         isPasswrod: true,
                         controller: password,
                         text: "كلمة السر",
@@ -93,6 +98,7 @@ class _LoginBodyState extends State<LoginBody> {
                       BlocBuilder<LoginCubit, LoginState>(
                         builder: (context, state) {
                           return MyButton(
+                            colorFont: Colors.white,
                             isLoading: state is LoginLoading,
                             text: "تسجيل الدخول",
                             action: () async {

@@ -52,10 +52,20 @@ class _ReportState extends State<Report> {
             }
           },
           child:  Scaffold(
+
               appBar: AppBar(
+                automaticallyImplyLeading: false,
+                actions: [
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: IconButton(onPressed: (){
+
+                      Navigator.pop(context);
+                    }, icon:const Icon(Icons.arrow_back,color: Colors.white,)))
+                ],
                 title: const Text('التقارير',
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white)),
                 centerTitle: true,
                 backgroundColor: kColorPrimer,
                 elevation: 5,

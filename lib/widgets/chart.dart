@@ -23,7 +23,7 @@ class _ChartState extends State<Chart> {
   Widget build(BuildContext context) {
     valueEverMoth=ReadingsModel.getUsageMonth(readings: widget.reads);
     return Container(
-      height: Screensize().sizeScreen(context, 0.5, 0.6),
+      height: Screensize().sizeScreen(context, 0.51, 0.6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey[200],

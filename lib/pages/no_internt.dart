@@ -11,6 +11,7 @@ class NoEnterntScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

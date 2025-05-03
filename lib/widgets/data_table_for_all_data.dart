@@ -67,7 +67,7 @@ class Datatableforalldata extends StatelessWidget {
                   '${data.date.year}-${data.date.month}-${data.date.day}',
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
-              DataCell(Text((data is ReadingsModel )?'قراءة  فاتورة':'دفع سند',
+              DataCell(Text((data is ReadingsModel )?'قراءة  ':'دفع سند',
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
               DataCell(Text((data is ReadingsModel )?'${data.getTotalBill()}-':data.totalDuesAfterPaying.toString(),

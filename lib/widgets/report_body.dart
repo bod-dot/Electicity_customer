@@ -87,6 +87,7 @@ class _ReportBodyState extends State<ReportBody> {
                         children: [
                           Expanded(
                             child: MyTextinput(
+                               style:const  TextStyle(color: Colors.black),
                               controller: fromdate,
                               readOnly: true,
                               onTop: () {
@@ -114,6 +115,7 @@ class _ReportBodyState extends State<ReportBody> {
                           const SizedBox(width: 16),
                           Expanded(
                             child: MyTextinput(
+                               style:const  TextStyle(color: Colors.black),
                               controller: todate,
                               readOnly: true,
                               onTop: () {
@@ -142,6 +144,7 @@ class _ReportBodyState extends State<ReportBody> {
                       const SizedBox(height: 20),
                       Center(
                         child: MyButton(
+                          
                           text: 'عرض التقرير',
                           action: () async {
                           

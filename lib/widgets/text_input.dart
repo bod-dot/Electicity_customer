@@ -14,7 +14,9 @@ class MyTextinput extends StatefulWidget {
       this.readOnly = false,
       this.colorInFocuse = kColorPrimer,
       this.isPasswrod = false,
-      this.typeText});
+      this.typeText,
+      this.labelStyle,
+      this.style});
 
   final Icon texticon;
   final String text;
@@ -27,6 +29,8 @@ final  Color colorInFocuse;
 
  final bool isPasswrod;
  final TextInputType? typeText;
+ final TextStyle? labelStyle ;
+ final TextStyle? style;
 
   @override
   State<MyTextinput> createState() => _MyTextinputState();
@@ -36,16 +40,17 @@ class _MyTextinputState extends State<MyTextinput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-       maxLength: widget.typeText==TextInputType.phone?9:50,
+      
+       maxLength: widget.typeText==TextInputType.phone?9:null,
       validator: (data) {
         if (data?.isEmpty??true) {
-          return 'يرجو تعبة الحقل ';
+          return 'يرجى تعبئة الحقل ';
         } 
           if (int.tryParse(data!) == null &&
               widget.typeText == TextInputType.phone) {
-            return 'يرجاء تعبة الحقل ارقام فقط';
+            return 'يرجى تعبئة الحقل ارقام فقط';
           }
-          if(widget.typeText==TextInputType.number ||widget.typeText==TextInputType.phone)
+          if(widget.typeText==TextInputType.phone)
           {
             if(data.length>=2)
             {
@@ -60,24 +65,43 @@ class _MyTextinputState extends State<MyTextinput> {
             }
            
           }
+          if(widget.typeText==TextInputType.number )
+          {
+             if(data.length>=3)
+            {
+               int number=int.parse(data.substring(0,1));
+               if(number==0)
+               {
+                return "لا يجب ان يبداء 0";
+               }
+            
+
+            }
+             
+          }
         
         return null;
       },
+      style:widget.style?? const   TextStyle(color: Colors.white),
       keyboardType: widget.typeText,
       readOnly: widget.readOnly,
       onTap: widget.onTop,
       controller: widget.controller,
       obscureText: widget.obscureText,
       decoration: InputDecoration(
+        
+        
           labelText: widget.text,
-          labelStyle:const  TextStyle(color: Colors.black),
+          labelStyle: widget.labelStyle ?? const  TextStyle(color: Colors.white),
           prefixIcon: widget.texticon,
           suffix: widget.isPasswrod
               ? GestureDetector(
+
                   onTap: () {
                     setState(() {
                       widget.obscureText = widget.obscureText ? false : true;
                     });
+                    
                   },
                   child: widget.obscureText
                       ?const  Icon(Icons.visibility_outlined)
