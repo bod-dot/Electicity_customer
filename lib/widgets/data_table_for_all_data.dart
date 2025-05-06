@@ -70,7 +70,7 @@ class Datatableforalldata extends StatelessWidget {
               DataCell(Text((data is ReadingsModel )?'قراءة  ':'دفع سند',
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
-              DataCell(Text((data is ReadingsModel )?'${data.getTotalBill()}-':data.totalDuesAfterPaying.toString(),
+              DataCell(Text((data is ReadingsModel )?'${data.getTotalBill()}- ريال':"${data.customerMovementPaiedAmount} ريال",
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
               DataCell(Text((data is ReadingsModel )?'عليكم فاتوره كهرباء ':'لكم سند قبض   ',
@@ -89,11 +89,14 @@ class Datatableforalldata extends StatelessWidget {
             const  DataCell(Text("")),
               DataCell(Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(
-                  result
-                      .fold(0.0, (sum, data) => sum + ((data is ReadingsModel) ? -data.getTotalBill():data.customerMovementPaiedAmount))
-                      .toString(),
-                  style:const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Text(
+                    "  ${result
+                        .fold(0.0, (sum, data) => sum + ((data is ReadingsModel) ? -data.getTotalBill():data.customerMovementPaiedAmount))
+                        } ريال",
+                    style:const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
               )),
              const DataCell(Text("")),

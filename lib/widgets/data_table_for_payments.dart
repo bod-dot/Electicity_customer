@@ -51,9 +51,9 @@ final  Screensize screen = Screensize();
               DataCell(Text('${payment.date.year}-${payment.date.month}-${payment.date.day}',
                   style: TextStyle(fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
 
-              DataCell(Text(payment.customerMovementPaiedAmount.toString(),
+              DataCell(Text('${payment.customerMovementPaiedAmount} ريال',
                   style: TextStyle(fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
-              DataCell(Text(payment.customerMovementType ==0?"دفع الكتروني":"دفع من احد فروعنا",
+              DataCell(Text(payment.customerMovementType ==2?"دفع الكتروني":"دفع من احد فروعنا",
                   style: TextStyle(fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
               DataCell(Text(payment.totalDuesAfterPaying.toString(),
                   style: TextStyle(fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
@@ -67,7 +67,7 @@ final  Screensize screen = Screensize();
             const   DataCell(Text("الإجمالي", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
              const  DataCell(Text("")),
               DataCell(Text(
-                result.fold(0.0, (sum, payment) => sum + payment.customerMovementPaiedAmount).toString(),
+                '${result.fold(0.0, (sum, payment) => sum + payment.customerMovementPaiedAmount)} ريال',
                 style:const  TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               )),
              const  DataCell(Text("")),

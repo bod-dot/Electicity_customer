@@ -35,7 +35,8 @@ class ReportCubit extends Cubit<ReportState> {
 if (from.isNotEmpty && to.isNotEmpty) {
   DateTime fromdata=DateTime.parse(from);
   DateTime todata=DateTime.parse(to);
-  if (todata.isAfter(fromdata)) {
+  int check=todata.compareTo(fromdata);
+  if (todata.isAfter(fromdata) || check==0) {
   if(typeReport=='القراءات')
   {
     emit(ReportReading());

@@ -64,6 +64,7 @@ class _LoginBodyState extends State<LoginBody> {
                         height: screen.sizeScreen(context, 0.05, 0.05),
                       ),
                       MyTextinput(
+                        maxLength: 9,
                         style:const  TextStyle(color: Colors.black), 
                         
                         labelStyle:const  TextStyle(color: Colors.black),

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:customer/controllers/add_new_austomer_movement.dart';
 
-import '../home_cubit/home_cubit.dart';
 part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {

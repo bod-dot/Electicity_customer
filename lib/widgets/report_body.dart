@@ -44,7 +44,10 @@ class _ReportBodyState extends State<ReportBody> {
     await BlocProvider.of<ReportCubit>(context).getPaymentAndCheckEnternt();
     if (!mounted) return;
     liPayment = BlocProvider.of<ReportCubit>(context).liPayment;
-    liAllData = [...liPayment, ...liReadings];
+    liAllData = [ ...liReadings,...liPayment];
+    liReadings.sort((a, b) => a.date.compareTo(b.date));
+    liPayment.sort((a, b) => a.date.compareTo(b.date));
+   liAllData.sort((a, b) => a.date.compareTo(b.date));
   }
 
   @override
@@ -87,6 +90,7 @@ class _ReportBodyState extends State<ReportBody> {
                         children: [
                           Expanded(
                             child: MyTextinput(
+                               labelStyle:const TextStyle(color: Colors.black),
                                style:const  TextStyle(color: Colors.black),
                               controller: fromdate,
                               readOnly: true,
@@ -115,6 +119,7 @@ class _ReportBodyState extends State<ReportBody> {
                           const SizedBox(width: 16),
                           Expanded(
                             child: MyTextinput(
+                              labelStyle:const TextStyle(color: Colors.black),
                                style:const  TextStyle(color: Colors.black),
                               controller: todate,
                               readOnly: true,

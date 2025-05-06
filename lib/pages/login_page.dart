@@ -26,30 +26,42 @@ class _LoginPageState extends State<LoginPage> {
         create: (context) => LoginCubit(),
         child: BlocListener<LoginCubit, LoginState>(
           listener: (context, state) {
-            if(state is LoginSuccess) {
-              Navigator.pushNamed(context, Homepage.id,);
-            }
-            else if(state is LoginFalure)
-            {
-               Mysnackbar().showSnackbarError(
-                    context: context,
-                    message:
-              state.errMessage,contentType: ContentType.failure,title: 'خطاء');
-            }
-            else if(state is LoginNOinternt)
-            {
-                Mysnackbar().showSnackbarError(
-                    context: context,
-                    message:
-              'تحقق من وجود الانترنت',contentType: ContentType.failure,title: 'خطاء');
-            }
-            else if (state is LoginWrongPasswordAndPhone)
-            {
-              Mysnackbar().showSnackbarError(
-                    context: context,
-                    message:
-              "كلمة السر او رقم الهاتف خاطئة",contentType: ContentType.failure,title: 'خطاء');
-            }
+          if (state is LoginSuccess) {
+ 
+          Mysnackbar().showSnackbarError(
+            context: context,
+            title: 'نجاح',
+            message: 'تم تسجيل الدخول بنجاح',
+            contentType: ContentType.success,  
+          );
+          Navigator.pushNamed(context, Homepage.id);
+        }
+        else if (state is LoginFalure) {
+          Mysnackbar().showSnackbarError(
+            context: context,
+            title: 'خطأ',
+            message: state.errMessage,
+            contentType: ContentType.failure,  
+          );
+        }
+        else if (state is LoginNOinternt) {
+   
+          Mysnackbar().showSnackbarError(
+            context: context,
+            title: 'انقطاع اتصال',
+            message: 'يرجى التحقق من اتصال الإنترنت ثم المحاولة مجددًا',
+            contentType: ContentType.failure,  
+          );
+        }
+        else if (state is LoginWrongPasswordAndPhone) {
+        
+          Mysnackbar().showSnackbarError(
+            context: context,
+            title: 'بيانات غير صحيحة',
+            message: 'رقم الهاتف أو كلمة المرور غير صحيحة',
+            contentType: ContentType.failure,    
+          );
+}
 
 
           },

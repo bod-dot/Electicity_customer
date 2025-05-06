@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../helper/my_constans.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
 
   @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+
+  @override
+ 
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     SystemChrome.setSystemUIOverlayStyle(
+      const   SystemUiOverlayStyle(
+          statusBarColor: Colors.black, // اللون المطلوب
+          statusBarIconBrightness: Brightness.light, // لون الأيقونات (فاتح/داكن)
+          systemNavigationBarColor: Colors.white, // لون شريط التنقل (اختياري)
+        ),
+      );
+  }
+   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -39,7 +59,7 @@ class AboutScreen extends StatelessWidget {
                     const  Icon(Icons.bolt, color: kColorFoured, size: 30),
                       const SizedBox(width: 15),
                       Text(
-                        'المحصِّل',
+                        'فاتورتي',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -107,7 +127,7 @@ class AboutScreen extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'تطبيق "المحصِّل" يُعد بوابتك الذكية لإدارة استهلاك الطاقة الكهربائية بشكل فعّال وآمن.\n\n',
+                              text: 'تطبيق "فاتورتي" يُعد بوابتك الذكية لإدارة استهلاك الطاقة الكهربائية بشكل فعّال وآمن.\n\n',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: kColorPrimer,

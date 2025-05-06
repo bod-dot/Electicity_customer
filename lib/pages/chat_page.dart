@@ -108,6 +108,7 @@ class _ChatpageState extends State<Chatpage> {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: TextField(
+                        maxLength: 4000,
                         onChanged: (data) {
                           setState(() {});
                         },
@@ -121,7 +122,7 @@ class _ChatpageState extends State<Chatpage> {
                                       SendNewMessage().sendMessage(
                                           message: message.text, customerID: 5);
                                       message.clear();
-                                      await getMessages.getMessage(customerID: widget.customerID!);
+                                      await getMessages.getMessage(customerID: widget.customerID);
                                       _controller.jumpTo(0);
                                     },
                                     child: const Icon(

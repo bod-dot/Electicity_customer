@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/home_cubit/home_cubit.dart';
 import '../helper/my_constans.dart';
 import '../helper/screen_size.dart';
+import 'custom_button_done_payment.dart';
 import 'my_button.dart';
 import 'my_icon.dart';
 import 'my_snackbar.dart';
@@ -29,7 +30,9 @@ class _PaymantBodyState extends State<PaymantBody> {
   @override
   void initState() {
     cntraccountNumber.text = '3011730174';
-    cntrmony.text = BlocProvider.of<HomeCubit>(context).many!;
+    String many=BlocProvider.of<HomeCubit>(context).many!;
+    int change=int.parse(many.substring(0,many.length-2)).toInt();
+    cntrmony.text = change.toString();
     super.initState();
   }
 
@@ -58,7 +61,7 @@ class _PaymantBodyState extends State<PaymantBody> {
               message: state.errMessage,
               contentType: ContentType.warning,
             );
-          } else if (state is PaymentNoRowEffect) {
+          } else if (state is PaymentNoRowEffect ||state is PaymentWrongCode) {
             code.clear();
             Navigator.pop(context);
             snackbar.showSnackbarError(
@@ -67,16 +70,7 @@ class _PaymantBodyState extends State<PaymantBody> {
               message: 'لم تتم عملية نقل الأموال',
               contentType: ContentType.warning,
             );
-          } else if (state is PaymentWrongCode) {
-            code.clear();
-            Navigator.pop(context);
-            snackbar.showSnackbarError(
-              context: context,
-              title: 'رمز التأكيد',
-              message: 'رمز التأكيد غير صحيح، يرجى المحاولة مرة أخرى',
-              contentType: ContentType.help,
-            );
-          } else if (state is PaymentSuccessfully) {
+          }  else if (state is PaymentSuccessfully) {
             code.clear();
             BlocProvider.of<HomeCubit>(context).getDataForHomePage();
             Navigator.pop(context);
@@ -120,6 +114,7 @@ class _PaymantBodyState extends State<PaymantBody> {
                       ),
                       SizedBox(height: screenHeight * 0.02),
                       MyTextinput(
+                        maxLength: 8,
                         labelStyle: const TextStyle(color: Colors.white),
                         controller: cntrmony,
                         typeText: TextInputType.number,
@@ -163,105 +158,114 @@ class _PaymantBodyState extends State<PaymantBody> {
         ));
   }
 
-  void alert() {
-    GlobalKey<FormState> fromKeyalert= GlobalKey();
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24.0),
-          ),
-          elevation: 16,
-          backgroundColor: Colors.white,
-          titlePadding: const EdgeInsets.only(top: 24, left: 24, right: 24),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          title: Form(
-            key: fromKeyalert,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.attach_money,
-                  color: Colors.green.shade700,
-                  size: 56,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'يرجى إدخال رمز التعريف الخاص بالدفع الإلكتروني\n(يمكنك الحصول عليه من تطبيق بنك الكريمي)',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey.shade800,
+ void alert() {
+  bool checkPersonalIdentificationNumberLength = false;
+  GlobalKey<FormState> fromKeyalert = GlobalKey();
+
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => Directionality(
+      textDirection: TextDirection.rtl,
+      child: StatefulBuilder(
+        builder: (context, setStateDialog) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ),
+            elevation: 16,
+            backgroundColor: Colors.white,
+            titlePadding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            title: Form(
+              key: fromKeyalert,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.attach_money,
+                    color: Colors.green.shade700,
+                    size: 56,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Text(
+                    'يرجى إدخال رمز التعريف الخاص بالدفع الإلكتروني\n(يمكنك الحصول عليه من تطبيق بنك الكريمي)',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          content: MyTextinput(
-            labelStyle:const TextStyle(color: Colors.black) ,
-            style: const TextStyle(color: Colors.black),
-            controller: code,
-            typeText: TextInputType.number,
-            text: 'أدخل الرمز',
-            texticon: const Icon(
-              Icons.lock,
-              color: Colors.green,
+            content: MyTextinput(
+              onChanged: (value) {
+                setStateDialog(() {
+                  checkPersonalIdentificationNumberLength = (value.length == 4);
+                });
+              },
+              maxLength: 4,
+              labelStyle: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
+              controller: code,
+              typeText: TextInputType.number,
+              text: 'أدخل الرمز',
+              texticon: const Icon(
+                Icons.lock,
+                color: Colors.green,
+              ),
             ),
-          ),
-          actionsPadding:
-              const EdgeInsets.only(bottom: 16, right: 24, left: 24),
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
+            actionsPadding:
+                const EdgeInsets.only(bottom: 16, right: 24, left: 24),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
                     width: 100,
                     child: BlocBuilder<PaymentCubit, PaymentState>(
                       builder: (context, state) {
-                        return MyButton(
+                        return CustomButtonDonePayment(
+                          checkLength: checkPersonalIdentificationNumberLength,
                           isLoading: state is PaymentLoading,
-                          text: 'تأكيد',
-                          action: () {
-                            if(fromKeyalert.currentState!.validate()) {
+                          onPressed: () {
+                            if (fromKeyalert.currentState!.validate()) {
                               BlocProvider.of<PaymentCubit>(context).paymanets(
                                 code: code.text,
                                 many: cntrmony.text,
                                 allMayn:
-                                    BlocProvider.of<HomeCubit>(context).many!);
+                                    BlocProvider.of<HomeCubit>(context).many!,
+                              );
                             }
                           },
-                          color: Colors.green.shade700,
-                          colorFont: Colors.white,
-                          fontSize: 18,
-                          height: 10,
-                          width: 20,
                         );
                       },
-                    )),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyButton(
-                  text: 'الغاء',
-                  action: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Colors.red.shade700,
-                  colorFont: Colors.white,
-                  fontSize: 18,
-                  height: 11,
-                  width: 30,
-                ),
-              ],
-            ),
-          ],
-        ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  MyButton(
+                    text: 'الغاء',
+                    action: () {
+                      Navigator.of(context).pop();
+                    },
+                    color: Colors.red.shade700,
+                    colorFont: Colors.white,
+                    fontSize: 18,
+                    height: 11,
+                    width: 30,
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 }

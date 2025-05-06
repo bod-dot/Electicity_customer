@@ -12,6 +12,7 @@ class Electricitybillcard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+      
       alignment: Alignment.topLeft,
       child: Container(
         height: 280,

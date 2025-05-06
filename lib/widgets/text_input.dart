@@ -16,7 +16,7 @@ class MyTextinput extends StatefulWidget {
       this.isPasswrod = false,
       this.typeText,
       this.labelStyle,
-      this.style});
+      this.style, this.maxLength, this.onChanged});
 
   final Icon texticon;
   final String text;
@@ -26,11 +26,12 @@ class MyTextinput extends StatefulWidget {
 final  VoidCallback? onTop;
 final  bool readOnly;
 final  Color colorInFocuse;
-
+final int? maxLength;
  final bool isPasswrod;
  final TextInputType? typeText;
  final TextStyle? labelStyle ;
  final TextStyle? style;
+  final  void Function(String)? onChanged;
 
   @override
   State<MyTextinput> createState() => _MyTextinputState();
@@ -40,12 +41,17 @@ class _MyTextinputState extends State<MyTextinput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged:widget.onChanged ,
       
-       maxLength: widget.typeText==TextInputType.phone?9:null,
+       maxLength: widget.maxLength,
       validator: (data) {
         if (data?.isEmpty??true) {
           return 'يرجى تعبئة الحقل ';
         } 
+        if(widget.typeText==null && data!.length<6)
+        {
+           return 'يجب ان لا يقل عن 6 احروف وا ارقام';
+        }
           if (int.tryParse(data!) == null &&
               widget.typeText == TextInputType.phone) {
             return 'يرجى تعبئة الحقل ارقام فقط';

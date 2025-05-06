@@ -54,6 +54,7 @@ class _ChangePasswrodBodyState extends State<ChangePasswrodBody> {
                             size: screen.sizeScreen(context, 0.15, 0.3)),
                         const SizedBox(height: 20),
                         MyTextinput(
+                          maxLength: 50,
                           isPasswrod: true,
                           colorInFocuse: Colors.white,
                           text: "كلمة السر القديمة",
@@ -64,6 +65,7 @@ class _ChangePasswrodBodyState extends State<ChangePasswrodBody> {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         MyTextinput(
+                           maxLength: 50,
                           isPasswrod: true,
                           colorInFocuse: Colors.white,
                           text: "كلمة السر الجديدة",
@@ -74,6 +76,7 @@ class _ChangePasswrodBodyState extends State<ChangePasswrodBody> {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         MyTextinput(
+                           maxLength: 50,
                           isPasswrod: true,
                           colorInFocuse: Colors.white,
                           text: "تأكيد كلمة السر",

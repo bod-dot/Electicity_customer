@@ -42,17 +42,21 @@ class DatatableForReadings extends StatelessWidget {
           DataColumn(
               label: Text("تاريخ الفاتوره",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
-          DataColumn(
-              label: Text("قراه العداد",
+                  DataColumn(
+              label: Text("القراءه السابقة",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
           DataColumn(
-              label: Text("المتأخرة",
+              label: Text("القراءه الحالية",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
+        
           DataColumn(
               label: Text("الاستهلاك",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
           DataColumn(
               label: Text("سعر الوحدة",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
+                   DataColumn(
+              label: Text("المتأخرة",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
           DataColumn(
               label: Text("اجمالي الفاتورة",
@@ -70,19 +74,23 @@ class DatatableForReadings extends StatelessWidget {
                   '${reading.date.year}-${reading.date.month}-${reading.date.day}',
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
+                       DataCell(Text(reading.previousReading.toString(),
+                  style: TextStyle(
+                      fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
               DataCell(Text(reading.currentReading.toString(),
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
-              DataCell(Text(reading.totalDuesInThisReading.toString(),
-                  style: TextStyle(
-                      fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
+             
               DataCell(Text(reading.getUsageKilo().toString(),
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
               DataCell(Text(reading.priceOfKilo.toString(),
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
-              DataCell(Text(reading.getTotalBill().toString(),
+                       DataCell(Text(reading.totalDuesInThisReading.toString(),
+                  style: TextStyle(
+                      fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
+              DataCell(Text("${reading.getTotalBill()} ريال",
                   style: TextStyle(
                       fontSize: screen.sizeScreen(context, 0.018, 0.02)))),
             ]);
@@ -97,10 +105,11 @@ class DatatableForReadings extends StatelessWidget {
              const DataCell(Text("")),
              const DataCell(Text("")),
              const DataCell(Text("")),
+             const DataCell(Text("")),
               DataCell(Text(
-                result
+               "${ result
                     .fold(0.0, (sum, reading) => sum + reading.getTotalBill())
-                    .toString(),
+                    .toString()} ريال",
                 style:const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               )),
             ],

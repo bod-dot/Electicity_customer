@@ -30,7 +30,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           listener: (context, state) {
            if(state is ChangePasswordFailur)
            {
-            Mysnackbar().showSnackbarError(context: context, title: "خطاء", message: state.errMessage, contentType: ContentType.warning);
+            Mysnackbar().showSnackbarError(context: context, title: "حظأ", message: state.errMessage, contentType: ContentType.warning);
            }
            else if(state is ChangePasswordNoInternt)
            {
@@ -46,7 +46,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
            }
            else if(state is ChangePasswordWrongPassword)
            {
-            Mysnackbar().showSnackbarError(context: context, title: "كلمة السر", message: "كلمة السر غير صحيحة", contentType: ContentType.failure);
+            Mysnackbar().showSnackbarError(context: context, title: "كلمة السر", message: "كلمة السر القديمة غير صحيحة", contentType: ContentType.failure);
            }
           },
           child: Directionality(

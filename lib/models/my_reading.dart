@@ -46,19 +46,32 @@ class ReadingsModel {
 
   static double getMaxUsage({required List<double> read}) {
     double max = 0;
+    int test=0;
     for (int i = 0; i < read.length; i++) {
      if(max<read[i])
        {
          max=read[i];
        }
     }
-    return max + 100;
+
+   
+    for(int i=0; i<max.toInt();)
+    {
+      if(i<max.toInt())
+      {
+        i+=50;
+      }
+     test= i-max.toInt();
+    }
+    return max + test;
   }
 
-static  List<double> getUsageMonth({required List<ReadingsModel> readings, int valueMoth=11}) {
+static  List<double> getUsageMonth({required List<ReadingsModel> readings}) {
 
 
-  List<double> liValueMoth = List.filled(valueMoth, 0);
+int currentMonth = DateTime.now().month;
+List<double> liValueMoth = List.filled(currentMonth, 0.0);
+
 
     for (int i = 0; i < readings.length; i++) {
 
