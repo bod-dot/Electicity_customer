@@ -13,24 +13,12 @@ part 'report_state.dart';
 class ReportCubit extends Cubit<ReportState> {
   ReportCubit() : super(ReportInitial());
     List<dynamic> resultAllData = [];
-  List<PaymentModel> liPayment = [];
+  
   List<dynamic> liAllData = [];
 
-  Future getPaymentAndCheckEnternt()
- async {
-    bool checkInternet=await Api().checkInternet();
-    if(checkInternet)
-    {
-              SharedPreferences share = await SharedPreferences.getInstance();
-    int customerID = share.getInt('customerID') ?? 0;
-      liPayment = await GetAllPayments().getPayments(customerID: customerID);
-    }else
-    {
-      emit(ReportNoEnternt());
-    }
-  }
+  
 
-  List<dynamic> getUserReports({required String typeReport,required String from,required String to,required  List<ReadingsModel> liReadings,required List<dynamic>liAllData })
+  List<dynamic> getUserReports({required String typeReport,required String from,required String to,required  List<ReadingsModel> liReadings,required  List<PaymentModel> liPayment,required List<dynamic>liAllData })
 {
 if (from.isNotEmpty && to.isNotEmpty) {
   DateTime fromdata=DateTime.parse(from);

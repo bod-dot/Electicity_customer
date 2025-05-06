@@ -39,11 +39,12 @@ class _ReportBodyState extends State<ReportBody> {
     super.initState();
   }
 
-  void getData() async {
+  void getData()  {
     liReadings = BlocProvider.of<HomeCubit>(context).liReading;
-    await BlocProvider.of<ReportCubit>(context).getPaymentAndCheckEnternt();
-    if (!mounted) return;
-    liPayment = BlocProvider.of<ReportCubit>(context).liPayment;
+   
+    liPayment = BlocProvider.of<HomeCubit>(context).liPayment;  
+ 
+
     liAllData = [ ...liReadings,...liPayment];
     liReadings.sort((a, b) => a.date.compareTo(b.date));
     liPayment.sort((a, b) => a.date.compareTo(b.date));
@@ -156,6 +157,7 @@ class _ReportBodyState extends State<ReportBody> {
 
                           resultAllData=   BlocProvider.of<ReportCubit>(context)
                                 .getUserReports(
+                                  liPayment: liPayment,
                                  liAllData: liAllData,
                                  liReadings: liReadings,
                                     typeReport: selectedValue,

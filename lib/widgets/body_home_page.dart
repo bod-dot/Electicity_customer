@@ -1,4 +1,5 @@
 import 'package:customer/helper/screen_size.dart';
+import 'package:customer/models/my_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:customer/pages/my_payment_page.dart';
 import 'package:customer/pages/my_report.dart';
@@ -22,12 +23,17 @@ class BodyHomePage extends StatefulWidget {
 class _BodyHomePageState extends State<BodyHomePage> {
     List<ReadingsModel> liReading = [];
     int indextofReading = 0;
+    double? many;
+
     @override
   void initState() {
    liReading= BlocProvider.of<HomeCubit>(context).liReading;
+   List<PaymentModel>liPayment=BlocProvider.of<HomeCubit>(context).liPayment;
+   many=liPayment.last.date.compareTo(liReading.last.date)>=0?liPayment.last.customerMovementPaiedAmount:null;
    indextofReading = liReading.length - 1;
-    BlocProvider.of<HomeCubit>(context).many= liReading[liReading.length - 1]
-                                          .getTotalBill(isListOne: true).toString();
+    BlocProvider.of<HomeCubit>(context).many= many == null ?liReading[liReading.length - 1]
+                                          .getTotalBill(isListOne: true).toString():(liReading[liReading.length - 1]
+                                          .getTotalBill(isListOne: true) - many!).toString();
     super.initState();
   }
   @override
@@ -43,11 +49,12 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   child: ListView(
                     children: [
                       Container(
-                        height: Screensize().sizeScreen(context, 0.5, 1),
+                        height: Screensize().sizeScreen(context, 0.6, 1),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomRight: Radius.circular(50))),
                         child:  Mainelectricitybillcard(
+                        many: many,
                                 onTop: () {
                                   Navigator.pushNamed(context, Paymentpage.id,
                                       arguments: liReading[liReading.length - 1]

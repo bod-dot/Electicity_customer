@@ -12,12 +12,14 @@ class Mainelectricitybillcard extends StatelessWidget {
     required this.reading,
     this.onTop,
      this.checkIsListOn=false,
+      this.many,
   });
 
   final bool checkIsListOn;
   final ReadingsModel reading;
   final VoidCallback? onTop;
  final Screensize screen = Screensize();
+ final double? many;
 
   @override
   Widget build(BuildContext context) {
@@ -41,43 +43,72 @@ class Mainelectricitybillcard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          MytextLable(
-            value: checkIsListOn
-                ? "  فاتوره الكهرباء الاخيرة "
-                : " فاتوره الكهرباء السابقة  ",
-            // استخدام اللون الأساسي للنص ليتماشى مع التصميم
-            color: kColorPrimer,
-          ),
-          MytextLable(
-            value:
-            '${reading.date.year}/${reading.date.month}/${reading.date.day}',
-            color: kColorPrimer,
-          ),
+         Row(
+          mainAxisAlignment:many == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+           children: [
+          const  SizedBox.shrink(),
+            
+             Column(children: [
+                MytextLable(
+               value: checkIsListOn
+                   ? "  فاتوره الكهرباء الاخيرة "
+                   : " فاتوره الكهرباء السابقة  ",
+             
+               color: kColorPrimer,
+             ),
+             MytextLable(
+               value:
+               '${reading.date.year}/${reading.date.month}/${reading.date.day}',
+               color: kColorPrimer,
+             ),
+             ],),
+         ( many != null && checkIsListOn )?  const  Icon(Icons.check_box_outlined,color: Colors.green,size: 35,):const  SizedBox.shrink(),
+            
+           ],
+         ),
         const  Divider(),
           Inforow(
             value: reading.currentReading.toString(),
-            lable: " : قراه العداد الحالية",
+            lable: " :           قراه العداد الحالية",
           ),
           Inforow(
             value: reading.previousReading.toString(),
-            lable: " : قراه العداد السابقة",
+            lable: " :          قراه العداد السابقة",
           ),
           Inforow(
             value: "${reading.getUsageKilo()} kW",
-            lable: " :              الاستهلاك",
+            lable: " :                       الاستهلاك",
           ),
           Inforow(
             value:checkIsListOn ? " ${reading.customerTotalDues.toString()} ريال " :" ${reading.totalDuesInThisReading.toString()} ريال " ,
-            lable: " :                المتاخر ",
+            lable: " :                          المتاخر ",
           ),
           Inforow(
             value: "${reading.priceOfKilo} ريال",
-            lable: " :          سعر الوحدة",
+            lable: " :                    سعر الوحدة",
           ),
           Inforow(
-            value:"${reading.getTotalBill(isListOne: checkIsListOn)} "  "ريال" ,
-            lable: " :     اجمالي الفاتوره",
+           value:  "${reading.getTotalBill(isListOne: checkIsListOn)} "  "ريال",
+            lable: " :               اجمالي الفاتوره",
           ),
+           ( many != null && checkIsListOn ) ?  Column(
+            children: [
+               const  Divider(),
+              Inforow(
+               
+                value: "$many "  "ريال",
+                lable: " :                        تم الدفع",
+              ),
+              Inforow(
+                value: "${reading.getTotalBill(isListOne: checkIsListOn) - many!} ريال",
+                lable: " :اجمالي الفاتوره بعد الدفع",
+                ),
+                 const  Divider(),
+            ],
+          ):const SizedBox.shrink()
+         ,
+        
+          
           checkIsListOn
               ? Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
