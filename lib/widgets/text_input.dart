@@ -16,7 +16,7 @@ class MyTextinput extends StatefulWidget {
       this.isPasswrod = false,
       this.typeText,
       this.labelStyle,
-      this.style, this.maxLength, this.onChanged});
+      this.style, this.maxLength, this.onChanged, this.isMany});
 
   final Icon texticon;
   final String text;
@@ -32,6 +32,7 @@ final int? maxLength;
  final TextStyle? labelStyle ;
  final TextStyle? style;
   final  void Function(String)? onChanged;
+final bool ? isMany;
 
   @override
   State<MyTextinput> createState() => _MyTextinputState();
@@ -71,9 +72,9 @@ class _MyTextinputState extends State<MyTextinput> {
             }
            
           }
-          if(widget.typeText==TextInputType.number )
+          if(widget.isMany?? false )
           {
-             if(data.length>=3)
+             if(data.isNotEmpty)
             {
                int number=int.parse(data.substring(0,1));
                if(number==0)

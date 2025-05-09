@@ -80,7 +80,7 @@ class Mainelectricitybillcard extends StatelessWidget {
             lable: " :                       الاستهلاك",
           ),
           Inforow(
-            value:checkIsListOn ? " ${reading.customerTotalDues.toString()} ريال " :" ${reading.totalDuesInThisReading.toString()} ريال " ,
+            value:(checkIsListOn && many==null )?    " ${reading.customerTotalDues.toString()} ريال " :" ${reading.totalDuesInThisReading.toString()} ريال " ,
             lable: " :                          المتاخر ",
           ),
           Inforow(
@@ -88,7 +88,7 @@ class Mainelectricitybillcard extends StatelessWidget {
             lable: " :                    سعر الوحدة",
           ),
           Inforow(
-           value:  "${reading.getTotalBill(isListOne: checkIsListOn)} "  "ريال",
+           value:  "${reading.getTotalBill()} "  "ريال",
             lable: " :               اجمالي الفاتوره",
           ),
            ( many != null && checkIsListOn ) ?  Column(
@@ -100,7 +100,7 @@ class Mainelectricitybillcard extends StatelessWidget {
                 lable: " :                        تم الدفع",
               ),
               Inforow(
-                value: "${reading.getTotalBill(isListOne: checkIsListOn) - many!} ريال",
+                value: "${reading.customerTotalDues} ريال",
                 lable: " :اجمالي الفاتوره بعد الدفع",
                 ),
                  const  Divider(),

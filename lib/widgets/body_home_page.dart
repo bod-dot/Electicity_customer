@@ -28,13 +28,36 @@ class _BodyHomePageState extends State<BodyHomePage> {
     @override
   void initState() {
    liReading= BlocProvider.of<HomeCubit>(context).liReading;
-   List<PaymentModel>liPayment=BlocProvider.of<HomeCubit>(context).liPayment;
-   many=liPayment.last.date.compareTo(liReading.last.date)>=0?liPayment.last.customerMovementPaiedAmount:null;
+  
+   
    indextofReading = liReading.length - 1;
-    BlocProvider.of<HomeCubit>(context).many= many == null ?liReading[liReading.length - 1]
-                                          .getTotalBill(isListOne: true).toString():(liReading[liReading.length - 1]
-                                          .getTotalBill(isListOne: true) - many!).toString();
+   
+
+  getmanyData();
     super.initState();
+  }
+
+  void getmanyData()
+  {
+     List<PaymentModel>liPayment=BlocProvider.of<HomeCubit>(context).liPayment;
+  final DateTime targetDate = liReading.last.date;
+  final List<double> paidAmounts = liPayment
+  .where((e) =>
+    e.date.isAfter(targetDate) ||
+    e.date.isAtSameMomentAs(targetDate)
+  )
+  .map((e) => e.customerMovementPaiedAmount)
+  .toList();
+  paidAmounts.isNotEmpty?many=0:null;
+  for(int i=0;i<paidAmounts.length;i++)
+  {
+    
+    many= many!+ paidAmounts[i];
+  }
+
+
+   BlocProvider.of<HomeCubit>(context).many= many == null ?liReading[liReading.length - 1]
+  .getTotalBill(isListOne: true).toString():(liReading[liReading.length - 1].customerTotalDues.toString());
   }
   @override
   Widget build(BuildContext context) {

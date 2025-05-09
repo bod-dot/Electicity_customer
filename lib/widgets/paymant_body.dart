@@ -32,6 +32,7 @@ class _PaymantBodyState extends State<PaymantBody> {
     cntraccountNumber.text = '3011730174';
     String many=BlocProvider.of<HomeCubit>(context).many!;
     int change=int.parse(many.substring(0,many.length-2)).toInt();
+    change= change >0? change : 0;
     cntrmony.text = change.toString();
     super.initState();
   }
@@ -106,7 +107,7 @@ class _PaymantBodyState extends State<PaymantBody> {
                         enable: false,
                         labelStyle: const TextStyle(color: Colors.white),
                         controller: cntraccountNumber,
-                        typeText: TextInputType.number,
+                       
                         colorInFocuse: Colors.white,
                         text: "رقم حساب المحطة",
                         texticon:
@@ -114,6 +115,7 @@ class _PaymantBodyState extends State<PaymantBody> {
                       ),
                       SizedBox(height: screenHeight * 0.02),
                       MyTextinput(
+                        isMany: true,
                         maxLength: 8,
                         labelStyle: const TextStyle(color: Colors.white),
                         controller: cntrmony,
@@ -238,6 +240,7 @@ class _PaymantBodyState extends State<PaymantBody> {
                                 many: cntrmony.text,
                                 allMayn:
                                     BlocProvider.of<HomeCubit>(context).many!,
+                                    customerTotalDues: BlocProvider.of<HomeCubit>(context).liReading.last.customerTotalDues,  
                               );
                             }
                           },

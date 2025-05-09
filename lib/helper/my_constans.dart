@@ -9,6 +9,6 @@ const kColorBlack= Colors.black;
 const kColorwhite= Colors.white;
 const kUrlCheckInternet='https://www.gstatic.com/generate_204';
 const kImage='assets/images/rb_2150050934.png';
-const String urlAll='http://192.168.8.94/powerStationDB/';
+const String urlAll='http://192.168.1.3/powerStationDB/';
 //const String UrlAll='http://10.0.2.2/powerStationDB/';
 
