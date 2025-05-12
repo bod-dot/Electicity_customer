@@ -1,15 +1,14 @@
 class ReadingsModel {
-  final double previousReading;
-  final double currentReading;
+  final int previousReading;
+  final int currentReading;
   final  DateTime date;
   final double totalDuesInThisReading;
   final double customerTotalDues;
-  final int priceOfKilo;
+  final double priceOfKilo;
   final int readingID;
 
-  ReadingsModel( 
-      
-      {
+  ReadingsModel(    
+     {
         required this.totalDuesInThisReading,
         required this.previousReading,
       required this.currentReading,
@@ -21,25 +20,21 @@ class ReadingsModel {
   factory ReadingsModel.fromJson(Map<String,dynamic>jsonData) {
     return ReadingsModel(
       totalDuesInThisReading:double.parse(jsonData['TotalDuesInThisReading']) ,
-        previousReading: double.parse(jsonData['PreviousReading']??"0.0"),
-        currentReading: double.parse(jsonData['CurrentReading']??"0.0"),
+        previousReading: jsonData['PreviousReading']??0,
+        currentReading: jsonData['CurrentReading']??0,
         date:jsonData['DateOfCurrentReading']['date'] !=null ?
             DateTime.parse(jsonData['DateOfCurrentReading']['date']):DateTime.now(),
         customerTotalDues: double.parse(jsonData['CustomerTotalDues']),
-        priceOfKilo: int.parse(jsonData['PriceOfKilo']),
+        priceOfKilo: double.parse(jsonData['PriceOfKilo']),
     readingID: jsonData['ReadingID']);
   }
 
-  double getUsageKilo() {
+  int getUsageKilo() {
     return currentReading - previousReading;
   }
 
   double getTotalBill({ bool isListOne = false}) {
 
-    if(isListOne)
-    {
-      return getUsageKilo() * priceOfKilo + customerTotalDues;
-    }
     return getUsageKilo() * priceOfKilo + totalDuesInThisReading;
   }
 

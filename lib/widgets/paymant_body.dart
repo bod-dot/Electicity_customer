@@ -80,7 +80,9 @@ class _PaymantBodyState extends State<PaymantBody> {
               title: 'تمت العملية بنجاح',
               message: 'تم نقل الأموال بنجاح',
               contentType: ContentType.success,
+              
             );
+            Navigator.pop(context);
           }
         },
         child: SizedBox(

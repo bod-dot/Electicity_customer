@@ -80,7 +80,7 @@ class Mainelectricitybillcard extends StatelessWidget {
             lable: " :                       الاستهلاك",
           ),
           Inforow(
-            value:(checkIsListOn && many==null )?    " ${reading.customerTotalDues.toString()} ريال " :" ${reading.totalDuesInThisReading.toString()} ريال " ,
+            value:" ${reading.totalDuesInThisReading.toString()} ريال " ,
             lable: " :                          المتاخر ",
           ),
           Inforow(

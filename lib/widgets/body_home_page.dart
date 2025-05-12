@@ -31,7 +31,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
   
    
    indextofReading = liReading.length - 1;
-   
+   many=null;
 
   getmanyData();
     super.initState();
@@ -72,7 +72,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   child: ListView(
                     children: [
                       Container(
-                        height: Screensize().sizeScreen(context, 0.6, 1),
+                        height: Screensize().sizeScreen(context, 0.7, 1),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomRight: Radius.circular(50))),
@@ -90,7 +90,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                       ),
                      
                            SizedBox(
-                               //  height: Screensize().sizeScreen(context, 5, 1),
+                                // height: 100,
                               width: double.infinity,
                               child: Column(
                                 children: [
@@ -100,7 +100,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                           topRight: Radius.circular(100)),
                                       color: Colors.white,
                                     ),
-                                    height: 220,
+                                    height: 230,
                                     child: Column(
                                       children: [
                                         Padding(
@@ -144,53 +144,62 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                             ],
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 15),
-                                            child: ListView.builder(
-                                              //reverse: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: liReading.length > 6
-                                                  ? 6
-                                                  : liReading.length,
-                                              itemBuilder: (context, index) {
-                                                int reversedIndex =
-                                                    liReading.length -
-                                                        1 -
-                                                        index;
-
-                                                return InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      indextofReading =
-                                                          reversedIndex;
-                                                   
-                                                    });
-                                                  },
-                                                  child: Electricitybillcard(
-                                                    history:
-                                                        "${liReading[reversedIndex].date}",
-                                                    consumption:
-                                                        liReading[reversedIndex]
-                                                            .getUsageKilo(),
-                                                    money: (liReading[
-                                                                    reversedIndex]
-                                                                .currentReading -
-                                                            liReading[
-                                                                    reversedIndex]
-                                                                .previousReading) *
-                                                        liReading[reversedIndex]
-                                                            .priceOfKilo,
-                                                  ),
-                                                );
-                                              },
+                                        SizedBox(
+                                          height: 185,
+                                      //    width: double.infinity,
+                                          child: Expanded(
+                                            
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 15),
+                                              child: ListView.builder(
+                                                //reverse: true,
+                                                scrollDirection: Axis.horizontal,
+                                                itemCount: liReading.length > 6
+                                                    ? 6
+                                                    : liReading.length,
+                                                itemBuilder: (context, index) {
+                                                  int reversedIndex =
+                                                      liReading.length -
+                                                          1 -
+                                                          index;
+                                          
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indextofReading =
+                                                            reversedIndex;
+                                                     
+                                                      });
+                                                    },
+                                                    child: Expanded(
+                                                      child: Electricitybillcard(
+                                                        history:
+                                                            "${liReading[reversedIndex].date.day}/${liReading[reversedIndex].date.month}/${liReading[reversedIndex].date.year}",
+                                                        consumption:
+                                                            liReading[reversedIndex]
+                                                                .getUsageKilo(),
+                                                        money: (liReading[
+                                                                        reversedIndex]
+                                                                    .currentReading -
+                                                                liReading[
+                                                                        reversedIndex]
+                                                                    .previousReading) *
+                                                            liReading[reversedIndex]
+                                                                .priceOfKilo,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
                                         ),
+                                        
                                       ],
                                     ),
                                   ),
+                                
                                   Container(
                                     color: Colors.white,
                                     child: Column(
@@ -203,7 +212,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                           height: 30,
                                         ),
                                        const  Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding:  EdgeInsets.all(8.0),
                                           child: Text('استهلاك الطاقة لكل شهر',style: TextStyle(color: kColorSecond,fontSize: 18),),
                                         ),
                                         Chart(

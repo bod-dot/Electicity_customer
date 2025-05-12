@@ -99,7 +99,7 @@ class _HomepageState extends State<Homepage> {
                     else if(state is HomeFaluir)
                      Center(child: Text(state.errMessage),)
                      else if(state is HomeNoData)
-                     Mainelectricitybillcard(reading: ReadingsModel(totalDuesInThisReading: 0.0, previousReading: 0.0, currentReading: 0.0, date: DateTime.now(), customerTotalDues: 0.0, priceOfKilo: 0, readingID: 0))
+                     Mainelectricitybillcard(reading: ReadingsModel(totalDuesInThisReading: 0.0, previousReading: 0, currentReading: 0, date: DateTime.now(), customerTotalDues: 0.0, priceOfKilo: 0, readingID: 0))
                      else if(state is HomeNoInternt)
                              SizedBox(
                               height:Screensize().sizeScreen(context, 0.895, 0.9) ,
